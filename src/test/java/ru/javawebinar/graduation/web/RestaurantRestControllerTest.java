@@ -11,9 +11,12 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.graduation.RestaurantTestData;
 import ru.javawebinar.graduation.TestUtil;
 import ru.javawebinar.graduation.UserTestData;
+import ru.javawebinar.graduation.model.Menu;
 import ru.javawebinar.graduation.model.Restaurant;
+import ru.javawebinar.graduation.model.Vote;
 import ru.javawebinar.graduation.repository.restaurant.JpaRestaurantRepository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -21,8 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.javawebinar.graduation.RestaurantTestData.RESTAURANT_MATCHER;
-import static ru.javawebinar.graduation.RestaurantTestData.RESTAURANT_MATCHER_FIELDS_MENUS_AND_VOTES;
+import static ru.javawebinar.graduation.RestaurantTestData.*;
 
 class RestaurantRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = RestaurantRestController.REST_URL + '/';
@@ -48,11 +50,23 @@ class RestaurantRestControllerTest extends AbstractControllerTest {
     //200
     @Test
     void getById() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RestaurantTestData.RESTAURANT1_ID)
+        RESTAURANT2.setMenus(List.of(MENU1));
+        perform(MockMvcRequestBuilders.get(REST_URL + RestaurantTestData.RESTAURANT2_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(result -> RESTAURANT_MATCHER.assertMatch(TestUtil.readFromJsonMvcResult(result, Restaurant.class), RestaurantTestData.RESTAURANT1))
+                .andExpect(result -> RESTAURANT_MATCHER.assertMatch(TestUtil.readFromJsonMvcResult(result, Restaurant.class), RestaurantTestData.RESTAURANT2))
+                .andDo(print());
+    }
+
+    //200
+    @Test
+    void getByDate() throws Exception {
+        perform(get(REST_URL + "by?date=" + LocalDate.now())
+                .with(UserTestData.userHttpBasic(UserTestData.ADMIN1)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(result -> RESTAURANT_MATCHER_FIELDS_MENUS_AND_VOTES.assertMatch(TestUtil.readListFromJsonMvcResult(result, Restaurant.class), RestaurantTestData.RESTAURANT4))
                 .andDo(print());
     }
 

@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.javawebinar.graduation.RestaurantTestData.*;
 
 
-class MenuServiceImplTest extends AbstractServiceTest {
+class MenuServiceTest extends AbstractServiceTest {
 
     @Autowired
     private MenuService menuService;

@@ -8,11 +8,11 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "votes")
+@Table(name = "vote")
 public class Vote extends AbstractBaseEntity {
 
     @NotNull
-    @Column(name = "date")
+    @Column(name = "date_added")
     private LocalDate date = LocalDate.now();
 
     @NotNull

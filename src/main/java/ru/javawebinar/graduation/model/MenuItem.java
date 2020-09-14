@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "menu_items")
+@Table(name = "menu_item")
 public class MenuItem extends AbstractNamedEntity {
 
     @NotNull

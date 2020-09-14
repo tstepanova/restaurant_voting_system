@@ -1,6 +1,5 @@
 package ru.javawebinar.graduation.web;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import ru.javawebinar.graduation.RestaurantTestData;
 import ru.javawebinar.graduation.UserTestData;
 import ru.javawebinar.graduation.model.Vote;
 import ru.javawebinar.graduation.service.VoteService;
-import ru.javawebinar.graduation.util.VoteTime;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -31,11 +29,6 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     private VoteService voteService;
-
-    @AfterEach
-    void tearDown() {
-        VoteTime.restore();
-    }
 
     //204
     @Test

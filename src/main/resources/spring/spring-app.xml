@@ -18,10 +18,7 @@
 
     <import resource="spring-security.xml"/>
 
-    <bean id="voteTime" class="ru.javawebinar.graduation.util.VoteTime">
-        <constructor-arg name="hh" value="11"/>
-        <constructor-arg name="mm" value="00"/>
-    </bean>
+    <bean id="endVotingTime" class="ru.javawebinar.graduation.util.EndVotingTime"/>
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
     <context:component-scan base-package="ru.javawebinar.**.service"/>
@@ -99,19 +96,10 @@
           p:defaultEncoding="UTF-8">
         <property name="basenames" value="classpath:messages/app"/>
         <property name="fallbackToSystemLocale" value="false"/>
+        <property name="defaultLocale" value="ru"/>
     </bean>
 
     <bean class="org.springframework.context.support.MessageSourceAccessor">
         <constructor-arg ref="messageSource"/>
     </bean>
-
-    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="ru"/>
-    </bean>
-
-    <mvc:interceptors>
-        <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
-            <property name="paramName" value="lang"/>
-        </bean>
-    </mvc:interceptors>
 </beans>

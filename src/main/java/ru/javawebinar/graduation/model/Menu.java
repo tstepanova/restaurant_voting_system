@@ -13,12 +13,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "menus")
-@FilterDef(name = "date", parameters = @ParamDef(name = "date", type = "java.time.LocalDate"))
+@Table(name = "menu")
+@FilterDef(name = "date_added", parameters = @ParamDef(name = "date_added", type = "java.time.LocalDate"))
 public class Menu extends AbstractBaseEntity {
 
     @NotNull
-    @Column(name = "date")
+    @Column(name = "date_added")
     private LocalDate date;
 
     @JsonManagedReference

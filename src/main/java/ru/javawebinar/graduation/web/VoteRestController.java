@@ -40,9 +40,9 @@ public class VoteRestController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/by")
-    public ResponseEntity getBy(@RequestParam(value = "restaurantId", required = false) Integer restaurantId,
+    public List<Vote> getBy(@RequestParam(value = "restaurantId", required = false) Integer restaurantId,
                                 @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date) {
-        if(restaurantId == null) return ResponseEntity.ok().body(voteService.getBy(date));
-        return ResponseEntity.ok().body(voteService.getBy(restaurantId, date));
+        if(restaurantId == null) return voteService.getBy(date);
+        return voteService.getBy(restaurantId, date);
     }
 }

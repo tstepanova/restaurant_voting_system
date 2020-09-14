@@ -1,18 +1,38 @@
 package ru.javawebinar.graduation.repository.user;
 
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Repository;
 import ru.javawebinar.graduation.model.User;
 
 import java.util.List;
 
-public interface UserRepository {
+@Repository
+public class UserRepository {
+    private static final Sort SORT_NAME_EMAIL = Sort.by(Sort.Direction.ASC, "name", "email");
 
-    User save(User user);
+    private final JpaUserRepository crudRepository;
 
-    boolean delete(int id);
+    public UserRepository(JpaUserRepository crudRepository) {
+        this.crudRepository = crudRepository;
+    }
 
-    User get(int id);
+    public User save(User user) {
+        return crudRepository.save(user);
+    }
 
-    User getByEmail(String email);
+    public boolean delete(int id) {
+        return crudRepository.delete(id) != 0;
+    }
 
-    List<User> getAll();
+    public User get(int id) {
+        return crudRepository.findById(id).orElse(null);
+    }
+
+    public User getByEmail(String email) {
+        return crudRepository.getByEmail(email);
+    }
+
+    public List<User> getAll() {
+        return crudRepository.findAll(SORT_NAME_EMAIL);
+    }
 }

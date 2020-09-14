@@ -1,13 +1,11 @@
 package ru.javawebinar.graduation;
 
 import com.fasterxml.jackson.databind.ObjectReader;
-import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.RequestPostProcessor;
 import ru.javawebinar.graduation.model.*;
 import ru.javawebinar.graduation.to.MenuTo;
-import ru.javawebinar.graduation.util.VoteTime;
+import ru.javawebinar.graduation.util.EndVotingTime;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -116,11 +114,11 @@ public class RestaurantTestData {
     }
 
     public static void expireVoteTime() {
-        VoteTime.setTime(LocalTime.now().minusSeconds(1));
+        EndVotingTime.setTime(LocalTime.now().minusSeconds(1));
     }
 
     public static void increaseVoteTime() {
-        VoteTime.setTime(LocalTime.now().plusSeconds(1));
+        EndVotingTime.setTime(LocalTime.now().plusSeconds(1));
     }
 
     public static <T> ResultMatcher getToMatcher(Iterable<T> expected, Class<T> clazz, String... ignoringFields) {

@@ -9,6 +9,7 @@ import ru.javawebinar.graduation.model.User;
 
 @Transactional(readOnly = true)
 public interface JpaUserRepository extends JpaRepository<User, Integer> {
+
     @Transactional
     @Modifying
     @Query("DELETE FROM User u WHERE u.id=:id")

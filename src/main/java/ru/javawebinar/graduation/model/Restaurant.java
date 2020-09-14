@@ -13,17 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "restaurant")
 public class Restaurant extends AbstractNamedEntity {
 
     @NotBlank
     @Column(name = "address")
     @SafeHtml(groups = {View.Web.class})
     private String address;
-
-    @NotNull
-    @Column(name = "date")
-    private LocalDate date = LocalDate.now();
 
     @JsonManagedReference
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
@@ -46,14 +42,6 @@ public class Restaurant extends AbstractNamedEntity {
         this.address = address;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
     public List<Menu> getMenus() {
         return menus;
     }
@@ -68,7 +56,6 @@ public class Restaurant extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
-                ", date=" + date +
                 '}';
     }
 }

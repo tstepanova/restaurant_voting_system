@@ -1,6 +1,7 @@
 package ru.javawebinar.graduation.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,9 +40,14 @@ public class RestaurantRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity getById(@PathVariable("id") Integer id) {
-        Restaurant restaurant = jpaRestaurantRepository.getByIdWithMenuByDate(id, LocalDate.now());
+        Restaurant restaurant = jpaRestaurantRepository.getById(id);
         checkNotFound(restaurant, "No Restaurant found for ID " + id);
         return ResponseEntity.ok(restaurant);
+    }
+
+    @GetMapping(value = "/by")
+    public ResponseEntity getBy(@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date) {
+        return ResponseEntity.ok().body(jpaRestaurantRepository.getByDate(date));
     }
 
     @PreAuthorize("hasRole('ADMIN')")
