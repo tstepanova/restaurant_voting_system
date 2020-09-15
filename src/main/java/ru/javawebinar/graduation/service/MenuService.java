@@ -2,6 +2,7 @@ package ru.javawebinar.graduation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.graduation.model.Menu;
 import ru.javawebinar.graduation.model.Restaurant;
 import ru.javawebinar.graduation.repository.JpaMenuRepository;
@@ -25,6 +26,7 @@ public class MenuService {
         this.jpaMenuRepository = jpaMenuRepository;
     }
 
+    @Transactional
     public Menu create(Menu menu, int restaurantId) {
         checkNew(menu);
         Restaurant restaurant = jpaRestaurantRepository.findById(restaurantId).orElseThrow(
@@ -48,6 +50,7 @@ public class MenuService {
         return jpaMenuRepository.getByDate(date);
     }
 
+    @Transactional
     public Menu update(Menu menu, int restaurantId) {
         jpaMenuRepository.findById(menu.getId()).orElseThrow(() -> new NotFoundException("Not found menu with id=" + menu.getId()));
         Restaurant restaurant = jpaRestaurantRepository.getOne(restaurantId);

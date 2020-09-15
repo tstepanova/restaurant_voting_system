@@ -34,7 +34,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void vote() throws Exception {
         RestaurantTestData.increaseVoteTime();
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT1_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT1_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER1)))
                 .andExpect(status().isNoContent())
                 .andDo(print());
@@ -52,7 +52,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Transactional(propagation = Propagation.NEVER)
     void voteInvalid() throws Exception {
         RestaurantTestData.increaseVoteTime();
-        perform(post(REST_URL + "for?restaurantId=" + 1)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + 1)
                 .with(UserTestData.userHttpBasic(UserTestData.USER1)))
                 .andExpect(status().isConflict());
     }
@@ -68,13 +68,13 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void getByRestaurantIdAndDate() throws Exception {
         RestaurantTestData.increaseVoteTime();
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER1)));
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER2)));
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT3_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT3_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER3)));
-        perform(get(REST_URL + "by?restaurantId=" + RestaurantTestData.RESTAURANT2_ID + "&date=" + LocalDate.now())
+        perform(MockMvcRequestBuilders.get(REST_URL + "by?restaurantId=" + RestaurantTestData.RESTAURANT2_ID + "&date=" + LocalDate.now())
                 .with(UserTestData.userHttpBasic(UserTestData.ADMIN1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -86,13 +86,13 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void getByDate() throws Exception {
         RestaurantTestData.increaseVoteTime();
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER1)));
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT2_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER2)));
-        perform(post(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT3_ID)
+        perform(MockMvcRequestBuilders.put(REST_URL + "for?restaurantId=" + RestaurantTestData.RESTAURANT3_ID)
                 .with(UserTestData.userHttpBasic(UserTestData.USER3)));
-        perform(get(REST_URL + "by?date=" + LocalDate.now())
+        perform(MockMvcRequestBuilders.get(REST_URL + "by?date=" + LocalDate.now())
                 .with(UserTestData.userHttpBasic(UserTestData.ADMIN1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))

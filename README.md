@@ -64,10 +64,10 @@ Step 5. All restaurants with a menu for the current date
 
 Step 6. Users vote
 
- * `curl -s -X POST --user user1@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100024`
- * `curl -s -X POST --user user2@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100006`
- * `curl -s -X POST --user user3@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100005`
- * `curl -s -X POST --user tamara@mail.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100024`
+ * `curl -s -X PUT --user user1@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100024`
+ * `curl -s -X PUT --user user2@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100006`
+ * `curl -s -X PUT --user user3@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100005`
+ * `curl -s -X PUT --user tamara@mail.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100024`
 
 Step 7. Voting results
 
@@ -695,7 +695,7 @@ Response:
 
 ### Vote
 #### Vote for restaurant
-`curl -s -X POST --user user2@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100006`
+`curl -s -X PUT --user user2@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes/for?restaurantId=100006`
 
 #### Get user votes
 `curl -s --user user2@yandex.ru:password http://localhost:8080/restaurant_voting_system/rest/votes`

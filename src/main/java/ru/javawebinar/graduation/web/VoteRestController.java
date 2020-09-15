@@ -27,7 +27,7 @@ public class VoteRestController {
         this.voteService = voteService;
     }
 
-    @PostMapping(value = "/for")
+    @PutMapping(value = "/for")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void vote(@RequestParam("restaurantId") Integer restaurantId, Authentication authentication) {
         voteService.vote(restaurantId, authentication.getName());

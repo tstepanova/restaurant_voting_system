@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.graduation.model.Restaurant;
 import ru.javawebinar.graduation.model.Vote;
 import ru.javawebinar.graduation.repository.JpaVoteRepository;
@@ -33,6 +34,7 @@ public class VoteService {
         this.endVotingTime = endVotingTime;
     }
 
+    @Transactional
     public void vote(int restaurantId, String email) {
         LOGGER.info("{} vote for restaurant with id {}", email, restaurantId);
         Vote vote = jpaVoteRepository.findByUserEmailAndDate(email, LocalDate.now());
