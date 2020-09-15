@@ -3,6 +3,8 @@ package ru.javawebinar.graduation.web;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.graduation.RestaurantTestData;
 import ru.javawebinar.graduation.UserTestData;
 import ru.javawebinar.graduation.model.Vote;
@@ -20,6 +22,13 @@ class VotingRestControllerTest extends AbstractControllerTest {
 
     private static final String VOTING_REST_URL = VotingRestController.VOTING_REST_URL + '/';
     private static final String VOTES_REST_URL = VoteRestController.VOTES_REST_URL + '/';
+
+    //401
+    @Test
+    void votingAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(VOTING_REST_URL + "by?date=" + LocalDate.now()))
+                .andExpect(status().isUnauthorized());
+    }
 
     //200
     @Test

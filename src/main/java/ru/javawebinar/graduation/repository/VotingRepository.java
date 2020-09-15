@@ -19,13 +19,17 @@ public class VotingRepository {
     EntityManager entityManager;
 
     public Voting getByRestaurant_IdAndDate(int restaurantId, LocalDate date) {
-        javax.persistence.Query query = entityManager.createQuery("SELECT NEW ru.javawebinar.graduation.model.Voting(r, count(v.userEmail)) FROM Vote v " +
+        javax.persistence.Query query = entityManager.createQuery("SELECT r, count(v.userEmail) FROM Vote v " +
                 "LEFT JOIN v.restaurant r " +
                 "WHERE r.id = : restaurantId AND v.date = :date " +
-                "GROUP BY r.id", Voting.class);
+                "GROUP BY r.id");
         query.setParameter("restaurantId", restaurantId);
         query.setParameter("date", date);
-        return (Voting) query.getSingleResult();
+        List<Object[]> queryResult = query.getResultList();
+        if (queryResult != null && queryResult.size() > 0) {
+            return new Voting((Restaurant) queryResult.get(0)[0], (Long) queryResult.get(0)[1]);
+        }
+        return null;
     }
 
     public List<Voting> getByDate(LocalDate date) {

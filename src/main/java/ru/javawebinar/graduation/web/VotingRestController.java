@@ -32,7 +32,13 @@ public class VotingRestController {
     @GetMapping(value = "/by")
     public List<Voting> getBy(@RequestParam(value = "restaurantId", required = false) Integer restaurantId,
                               @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date) {
-        if(restaurantId == null) return votingService.getBy(date);
-        return new ArrayList<>(List.of(votingService.getBy(restaurantId, date)));
+        List<Voting> resultList = new ArrayList<>();
+        if (restaurantId == null) {
+            resultList = votingService.getBy(date);
+        } else {
+            Voting result = votingService.getBy(restaurantId, date);
+            if (result != null) resultList = new ArrayList<>(List.of(result));
+        }
+        return resultList;
     }
 }
