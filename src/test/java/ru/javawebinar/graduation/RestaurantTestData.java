@@ -32,6 +32,8 @@ public class RestaurantTestData {
     public static TestMatcher<Vote> VOTE_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Vote.class);
     public static TestMatcher<Vote> VOTE_MATCHER_FIELDS_USER_AND_RESTAURANT = TestMatcher.usingFieldsWithIgnoringAssertions(Vote.class, "user", "restaurant");
 
+    public static TestMatcher<Voting> VOTING_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Voting.class);
+
     public static TestMatcher<Restaurant> RESTAURANT_MATCHER_FIELDS_MENUS_AND_VOTES = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class, "menus", "votes");
     public static TestMatcher<Restaurant> RESTAURANT_MATCHER = TestMatcher.usingFieldsWithIgnoringAssertions(Restaurant.class);
 
@@ -66,16 +68,11 @@ public class RestaurantTestData {
     public static final MenuItem MENU_ITEM_9 = new MenuItem(MENU_ITEM1_ID + 8, "Мини Фокаччо", BigDecimal.valueOf(35).setScale(2));
     public static final MenuItem MENU_ITEM_10 = new MenuItem(MENU_ITEM1_ID + 9, "Американо", BigDecimal.valueOf(70).setScale(2));
 
-    public static final String FIELD_ID = "id";
-    public static final String FIELD_MENU = "menu";
-
     public static final int MENU1_ID = AbstractBaseEntity.START_SEQ + 10;
 
     public static final Menu MENU1 = new Menu(MENU1_ID, LocalDate.of(2020, 8, 31), List.of(MENU_ITEM_1, MENU_ITEM_2, MENU_ITEM_3), RESTAURANT2);
     public static final Menu MENU2 = new Menu(MENU1_ID + 1, LocalDate.of(2020, 8, 31), List.of(MENU_ITEM_4, MENU_ITEM_5, MENU_ITEM_6), RESTAURANT3);
     public static final Menu MENU3 = new Menu(MENU1_ID + 2, LocalDate.now(), List.of(MENU_ITEM_7, MENU_ITEM_8, MENU_ITEM_9, MENU_ITEM_10), RESTAURANT4);
-
-    public static final String[] FIELDS_RESTAURANT_AND_MENU_ITEMS = new String[]{"restaurant", "menuItems"};
 
     public static final int VOTE1_ID = AbstractBaseEntity.START_SEQ + 23;
     public static final int VOTE2_ID = VOTE1_ID + 1;
@@ -86,6 +83,9 @@ public class RestaurantTestData {
     public static final Vote VOTE2 = new Vote(VOTE2_ID, USER1.getEmail(), RESTAURANT2);
     public static final Vote VOTE3 = new Vote(VOTE3_ID, USER2.getEmail(), RESTAURANT2);
     public static final Vote VOTE4 = new Vote(VOTE4_ID, USER3.getEmail(), RESTAURANT3);
+
+    public static final Voting VOTING_RESTAURANT2 = new Voting(RESTAURANT2, 2);
+    public static final Voting VOTING_RESTAURANT3 = new Voting(RESTAURANT3, 1);
 
     public static Restaurant getRestaurant() {
         return new Restaurant(null, "Евразия", "Санкт-Петербург, Невский пр., 175");

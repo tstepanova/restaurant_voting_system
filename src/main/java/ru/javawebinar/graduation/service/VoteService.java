@@ -64,10 +64,6 @@ public class VoteService {
         return jpaVoteRepository.getByDate(date);
     }
 
-    public List<Vote> getAllByDate(LocalDate date) {
-        return jpaVoteRepository.getByDate(date);
-    }
-
     public Vote findByUser_EmailAndDate(String email, LocalDate date) {
         return jpaVoteRepository.findByUserEmailAndDate(email, date);
     }

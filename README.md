@@ -38,29 +38,29 @@ Step 2. Admin create menu
 
 `curl -s -X POST -d "{\"restaurantId\": 100024,\"menuItems\": [{\"name\": \"\u041c\u0438\u0441\u043e \u0441\u0443\u043f\",\"price\": 90},{\"name\": \"\u0420\u043e\u043b\u043b \u041a\u0430\u043b\u0438\u0444\u043e\u0440\u043d\u0438\u044f\",\"price\": 160}]}" -H "Content-Type:application/json;charset=UTF-8" --user admin1@gmail.com:admin http://localhost:8080/restaurant_voting_system/rest/menus`
 
-    {"id":100025,"date":"2020-09-15","menuItems":[{"id":100026,"name":"Мисо суп","price":90},{"id":100027,"name":"Ролл Калифорния","price":160}]}
+    {"id":100025,"date":"2020-09-16","menuItems":[{"id":100026,"name":"Мисо суп","price":90},{"id":100027,"name":"Ролл Калифорния","price":160}]}
     
 Step 3. Admin update menu
 
-`curl -s -X PUT -d "{\"restaurantId\": 100005, \"date\": \"2020-09-15\", \"menuItems\":[{\"name\": \"\u0421\u0443\u043f\",\"price\": 90},{\"name\": \"\u0427\u0430\u0439\",\"price\": 35},{\"name\": \"\u0421\u0430\u043b\u0430\u0442\",\"price\": 159}]}" -H "Content-Type:application/json;charset=UTF-8" http://localhost:8080/restaurant_voting_system/rest/menus/100010 --user admin1@gmail.com:admin`
+`curl -s -X PUT -d "{\"restaurantId\": 100005, \"menuItems\":[{\"name\": \"\u0421\u0443\u043f\",\"price\": 90},{\"name\": \"\u0427\u0430\u0439\",\"price\": 35},{\"name\": \"\u0421\u0430\u043b\u0430\u0442\",\"price\": 159}]}" -H "Content-Type:application/json;charset=UTF-8" http://localhost:8080/restaurant_voting_system/rest/menus/100010 --user admin1@gmail.com:admin`
 
-    {"id":100010,"date":"2020-09-15","menuItems":[{"id":100028,"name":"Суп","price":90},{"id":100029,"name":"Чай","price":35},{"id":100030,"name":"Салат","price":159}]}
+    {"id":100010,"date":"2020-09-16","menuItems":[{"id":100028,"name":"Суп","price":90},{"id":100029,"name":"Чай","price":35},{"id":100030,"name":"Салат","price":159}]}
     
-`curl -s -X PUT -d "{\"restaurantId\": 100006, \"date\": \"2020-09-15\", \"menuItems\":[{\"name\": \"\u041f\u0438\u0440\u043e\u0433\",\"price\": 150},{\"name\": \"\u041a\u043e\u0444\u0435\",\"price\": 60}]}" -H "Content-Type:application/json;charset=UTF-8" http://localhost:8080/restaurant_voting_system/rest/menus/100011 --user admin1@gmail.com:admin`
+`curl -s -X PUT -d "{\"restaurantId\": 100006, \"menuItems\":[{\"name\": \"\u041f\u0438\u0440\u043e\u0433\",\"price\": 150},{\"name\": \"\u041a\u043e\u0444\u0435\",\"price\": 60}]}" -H "Content-Type:application/json;charset=UTF-8" http://localhost:8080/restaurant_voting_system/rest/menus/100011 --user admin1@gmail.com:admin`
 
-    {"id":100011,"date":"2020-09-15","menuItems":[{"id":100031,"name":"Пирог","price":150},{"id":100032,"name":"Кофе","price":60}]}
+    {"id":100011,"date":"2020-09-16","menuItems":[{"id":100031,"name":"Пирог","price":150},{"id":100032,"name":"Кофе","price":60}]}
 
 Step 4. User registers
 
 `curl -s -i -X POST -d "{\"name\":\"Tamara\",\"email\":\"tamara@mail.ru\",\"password\":\"password\"}" -H "Content-Type:application/json;charset=UTF-8" http://localhost:8080/restaurant_voting_system/rest/profile/register`
 
-    {"id":100033,"name":"Tamara","email":"tamara@mail.ru","enabled":true,"registered":"2020-09-14T21:30:27.895+00:00","roles":["USER"]}
+    {"id":100033,"name":"Tamara","email":"tamara@mail.ru","enabled":true,"registered":"2020-09-15T21:28:42.818+00:00","roles":["USER"]}
 
 Step 5. All restaurants with a menu for the current date
 
-`curl -s GET http://localhost:8080/restaurant_voting_system/rest/restaurants/by?date=2020-09-15 --user admin1@gmail.com:admin`
+`curl -s GET http://localhost:8080/restaurant_voting_system/rest/restaurants/by?date=2020-09-16 --user tamara@mail.ru:password`
  
-    [{"id":100005,"name":"Pizza Hut","address":"Санкт-Петербург, Обводного канала наб., 120","menus":[{"id":100010,"date":"2020-09-15","menuItems":[{"id":100028,"name":"Суп","price":90.00},{"id":100029,"name":"Чай","price":35.00},{"id":100030,"name":"Салат","price":159.00}]}]},{"id":100006,"name":"Две палочки","address":"Санкт-Петербург, Просвещения пр., 19","menus":[{"id":100011,"date":"2020-09-15","menuItems":[{"id":100031,"name":"Пирог","price":150.00},{"id":100032,"name":"Кофе","price":60.00}]}]},{"id":100007,"name":"Лимончелло","address":"Санкт-Петербург, пр. Литейный, 40","menus":[{"id":100012,"date":"2020-09-15","menuItems":[{"id":100019,"name":"Картофельный крем-суп с беконом","price":180.00},{"id":100020,"name":"Паста Феттучине Болонезе","price":110.00},{"id":100021,"name":"Мини Фокаччо","price":35.00},{"id":100022,"name":"Американо","price":70.00}]}]},{"id":100024,"name":"Евразия","address":"Санкт-Петербург, Невский пр., 175","menus":[{"id":100025,"date":"2020-09-15","menuItems":[{"id":100026,"name":"Мисо суп","price":90.00},{"id":100027,"name":"Ролл Калифорния","price":160.00}]}]}]
+    [{"id":100005,"name":"Pizza Hut","address":"Санкт-Петербург, Обводного канала наб., 120","menus":[{"id":100010,"date":"2020-09-16","menuItems":[{"id":100028,"name":"Суп","price":90.00},{"id":100029,"name":"Чай","price":35.00},{"id":100030,"name":"Салат","price":159.00}]}]},{"id":100006,"name":"Две палочки","address":"Санкт-Петербург, Просвещения пр., 19","menus":[{"id":100011,"date":"2020-09-16","menuItems":[{"id":100031,"name":"Пирог","price":150.00},{"id":100032,"name":"Кофе","price":60.00}]}]},{"id":100007,"name":"Лимончелло","address":"Санкт-Петербург, пр. Литейный, 40","menus":[{"id":100012,"date":"2020-09-16","menuItems":[{"id":100019,"name":"Картофельный крем-суп с беконом","price":180.00},{"id":100020,"name":"Паста Феттучине Болонезе","price":110.00},{"id":100021,"name":"Мини Фокаччо","price":35.00},{"id":100022,"name":"Американо","price":70.00}]}]},{"id":100024,"name":"Евразия","address":"Санкт-Петербург, Невский пр., 175","menus":[{"id":100025,"date":"2020-09-16","menuItems":[{"id":100026,"name":"Мисо суп","price":90.00},{"id":100027,"name":"Ролл Калифорния","price":160.00}]}]}]
 
 Step 6. Users vote
 
@@ -71,9 +71,9 @@ Step 6. Users vote
 
 Step 7. Voting results
 
-`curl -s GET "http://localhost:8080/restaurant_voting_system/rest/votes/by?date=2020-09-15" --user admin1@gmail.com:admin`
+`curl -s GET http://localhost:8080/restaurant_voting_system/rest/voting/by?date=2020-09-16 --user tamara@mail.ru:password`
 
-    [{"id":100034,"date":"2020-09-15","userEmail":"user1@yandex.ru","restaurant":{"id":100024,"name":"Евразия","address":"Санкт-Петербург, Невский пр., 175","menus":null}},{"id":100035,"date":"2020-09-15","userEmail":"user2@yandex.ru","restaurant":{"id":100006,"name":"Две палочки","address":"Санкт-Петербург, Просвещения пр., 19","menus":null}},{"id":100036,"date":"2020-09-15","userEmail":"user3@yandex.ru","restaurant":{"id":100005,"name":"Pizza Hut","address":"Санкт-Петербург, Обводного канала наб., 120","menus":null}},{"id":100037,"date":"2020-09-15","userEmail":"tamara@mail.ru","restaurant":{"id":100024,"name":"Евразия","address":"Санкт-Петербург, Невский пр., 175","menus":null}}]
+    [{"restaurant":{"id":100024,"name":"Евразия","address":"Санкт-Петербург, Невский пр., 175","menus":null},"votesNumber":2},{"restaurant":{"id":100006,"name":"Две палочки","address":"Санкт-Петербург, Просвещения пр., 19","menus":null},"votesNumber":1},{"restaurant":{"id":100005,"name":"Pizza Hut","address":"Санкт-Петербург, Обводного канала наб., 120","menus":null},"votesNumber":1}]
 
 ### User
 #### Get all users
@@ -794,3 +794,56 @@ Response:
 | 204 | No Content |
 | 401 | Unauthorized |
 | 409 | Conflict |
+
+
+### Voting
+#### Get voting result by date
+`curl -s GET http://localhost:8080/restaurant_voting_system/rest/voting/by?date=2020-09-15 --user user1@yandex.ru:password`
+
+Response:
+
+    [
+          {
+          "restaurant":       {
+             "id": 100005,
+             "name": "Pizza Hut",
+             "address": "Санкт-Петербург, Обводного канала наб., 120",
+             "menus": null
+          },
+          "votesNumber": 2
+       },
+          {
+          "restaurant":       {
+             "id": 100006,
+             "name": "Две палочки",
+             "address": "Санкт-Петербург, Просвещения пр., 19",
+             "menus": null
+          },
+          "votesNumber": 1
+       }
+    ]
+
+#### Get voting result by restaurant id and date
+`curl -s GET 'http://localhost:8080/restaurant_voting_system/rest/voting/by?restaurantId=100005&date=2020-09-15' --user user1@yandex.ru:password`
+
+Win:
+`curl -s GET "http://localhost:8080/restaurant_voting_system/rest/voting/by?restaurantId=100005&date=2020-09-15" --user user1@yandex.ru:password`
+
+Response:
+
+    [{
+       "restaurant":    {
+          "id": 100005,
+          "name": "Pizza Hut",
+          "address": "Санкт-Петербург, Обводного канала наб., 120",
+          "menus": null
+       },
+       "votesNumber": 2
+    }]
+
+#### Voting HTTP status codes:
+
+| Code | Status |
+| --- | --- |
+| 200 | OK |
+| 401 | Unauthorized |

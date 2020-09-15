@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -15,10 +14,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = VoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = VoteRestController.VOTES_REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VoteRestController {
 
-    static final String REST_URL = "/rest/votes";
+    static final String VOTES_REST_URL = "/rest/votes";
 
     private VoteService voteService;
 
@@ -41,8 +40,8 @@ public class VoteRestController {
     @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/by")
     public List<Vote> getBy(@RequestParam(value = "restaurantId", required = false) Integer restaurantId,
-                                @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date) {
-        if(restaurantId == null) return voteService.getBy(date);
+                            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) @RequestParam("date") LocalDate date) {
+        if (restaurantId == null) return voteService.getBy(date);
         return voteService.getBy(restaurantId, date);
     }
 }
