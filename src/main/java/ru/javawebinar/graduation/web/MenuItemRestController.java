@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.javawebinar.graduation.View;
 import ru.javawebinar.graduation.model.MenuItem;
 import ru.javawebinar.graduation.repository.JpaMenuItemRepository;
 import ru.javawebinar.graduation.repository.JpaMenuRepository;
@@ -42,7 +43,7 @@ public class MenuItemRestController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MenuItem> create(@RequestBody @Validated MenuItemTo menuItemTo) {
+    public ResponseEntity<MenuItem> create(@RequestBody @Validated(View.Web.class) MenuItemTo menuItemTo) {
         checkNew(menuItemTo);
         MenuItem menuItem = MenuItemUtil.createFromTo(menuItemTo);
         menuItem.setMenu(jpaMenuRepository.getOne(menuItemTo.getMenuId()));
@@ -56,7 +57,7 @@ public class MenuItemRestController {
 
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void update(@PathVariable("id") Integer id, @Validated @RequestBody MenuItem menuItem) {
+    public void update(@PathVariable("id") Integer id, @Validated(View.Web.class) @RequestBody MenuItem menuItem) {
         assureIdConsistent(menuItem, id);
         MenuItem found = jpaMenuItemRepository.findById(id).orElseThrow(() -> new NotFoundException("MenuItem not found for ID " + id));
         found.setName(menuItem.getName());

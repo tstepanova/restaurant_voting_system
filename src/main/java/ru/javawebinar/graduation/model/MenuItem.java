@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "menu_item")
+@Table(name = "menu_item", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "menu_id"}, name = "menu_item_unique_name_menu_idx")})
 public class MenuItem extends AbstractNamedEntity {
 
     @NotNull

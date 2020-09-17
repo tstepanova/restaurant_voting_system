@@ -18,8 +18,7 @@ import java.util.List;
 
 @Service
 public class VoteService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(VoteService.class);
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     private final JpaVoteRepository jpaVoteRepository;
 
@@ -36,7 +35,7 @@ public class VoteService {
 
     @Transactional
     public void vote(int restaurantId, String email) {
-        LOGGER.info("{} vote for restaurant with id {}", email, restaurantId);
+        log.info("{} vote for restaurant with id {}", email, restaurantId);
         Vote vote = jpaVoteRepository.findByUserEmailAndDate(email, LocalDate.now());
 
         if (vote != null && restaurantId != vote.getRestaurant().getId() && LocalTime.now().isAfter(EndVotingTime.getTime())) {

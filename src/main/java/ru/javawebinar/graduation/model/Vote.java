@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "vote")
+@Table(name = "vote", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_added", "user_email"}, name = "vote_unique_date_user_idx")})
 public class Vote extends AbstractBaseEntity {
 
     @NotNull

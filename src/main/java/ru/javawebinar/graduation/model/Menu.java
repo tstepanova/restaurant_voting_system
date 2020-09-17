@@ -13,8 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "menu")
-@FilterDef(name = "date_added", parameters = @ParamDef(name = "date_added", type = "java.time.LocalDate"))
+@Table(name = "menu", uniqueConstraints = {@UniqueConstraint(columnNames = {"date_added", "restaurant_id"}, name = "menu_unique_date_added_restaurant_idx")})
 public class Menu extends AbstractBaseEntity {
 
     @NotNull

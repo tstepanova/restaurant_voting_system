@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import ru.javawebinar.graduation.View;
 import ru.javawebinar.graduation.model.Menu;
 import ru.javawebinar.graduation.service.MenuService;
 import ru.javawebinar.graduation.to.MenuTo;
@@ -36,7 +37,7 @@ public class MenuRestController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity create(@Validated @RequestBody MenuTo menuTo) {
+    public ResponseEntity create(@Validated(View.Web.class) @RequestBody MenuTo menuTo) {
         menuTo.getMenuItems().forEach(ValidationUtil::checkNew);
 
         Menu created = MenuUtil.createFromTo(menuTo);
@@ -71,7 +72,7 @@ public class MenuRestController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity update(@PathVariable("id") int id, @Validated @RequestBody MenuTo menuTo) {
+    public ResponseEntity update(@PathVariable("id") int id, @Validated(View.Web.class) @RequestBody MenuTo menuTo) {
         assureIdConsistent(menuTo, id);
         Menu updated = MenuUtil.createFromTo(menuTo);
         Menu menu = menuService.update(updated, menuTo.getRestaurantId());
